@@ -14,6 +14,9 @@ namespace TechnologyPractice.Controllers
             _stringHandler = stringHandler;
         }
 
+        /// <param name="text">string for handler</param>
+        /// <param name="sortSelection">Choose "quick" or "tree</param>
+       
         [HttpGet]
         public ActionResult GetString(string text, string sortSelection)
         {
