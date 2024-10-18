@@ -41,5 +41,43 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
+
+        public static Dictionary<char, int> CharCounter(string text)
+        {
+            var numberOfCharacter = new Dictionary<char, int>();
+
+            foreach (char c in text)
+            {
+                if (numberOfCharacter.ContainsKey(c))
+                {
+                    numberOfCharacter[c]++;
+                }
+                else
+                {
+                    numberOfCharacter[c] = 1;
+                }
+            }
+
+            return numberOfCharacter;
+        }
+
+        public static string SearchVowelsSubstring(string text)
+        {
+            string pattern = @"[aeiouy][a-z]*[aeiouy]";
+            var regex = new Regex(pattern);
+            var matches = regex.Matches(text);
+
+            var longestSubstring = string.Empty;
+
+            foreach (Match match in matches)
+            {
+                if (match.Length > longestSubstring.Length)
+                {
+                    longestSubstring = match.Value;
+                }
+            }
+
+            return longestSubstring;
+        }
     }
 }
