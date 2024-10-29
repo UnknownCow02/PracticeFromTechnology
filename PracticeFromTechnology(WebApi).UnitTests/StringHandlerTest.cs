@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using Moq;
+
 using PracticeFromTechnology_WebApi_.Handler;
 
 namespace PracticeFromTechnology_WebApi_.UnitTests
@@ -22,7 +22,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "cbafed";
 
             var result = _stringHandler.StringReverse(input);
-            Assert.That(result, Is.EqualTo(expected), "≈сли четное кол-во символов, то метод должен разделить строку на две подстроки, перевернуть их и соединить обратно.");
+            Assert.That(result, Is.EqualTo(expected), "If there is an even number of characters, then the method must keep the characters in two substrings, reverse and connect back.");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "edcbaabcde";
 
             var result = _stringHandler.StringReverse(input);
-            Assert.That(result, Is.EqualTo(expected), "≈сли нечетное кол-во символов, то метод должен перевернуть строку и присоединить к ней исходную.");
+            Assert.That(result, Is.EqualTo(expected), "If the number of characters is odd, the method should reverse the string and append the original to it.");
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "Ќедопустимые символы: A,B,!,1,2,3";
 
             var result = _stringHandler.GetInvalidCharacters(input);
-            Assert.That(result, Is.EqualTo(expected), "ћетод должен выводить все символы, кроме строчных английских букв.");
+            Assert.That(result, Is.EqualTo(expected), "The method should output all characters except lowercase English letters.");
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = new Dictionary<char, int>() { { 'a', 1 }, { 'b', 1 }, { 'c', 1 }, { 'd', 1 }, { 'e', 1 }, { 'f', 1 } };
             
             var result = _stringHandler.CharCounter(input);
-            Assert.That(result, Is.EqualTo(expected), "ћетод должен считать количество повторений каждого символа в строке");
+            Assert.That(result, Is.EqualTo(expected), "The method should count the number of times each character occurs in a string.");
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "afe";
 
             var result = _stringHandler.SearchVowelsSubstring(input);
-            Assert.That(result, Is.EqualTo(expected), "ћетод должен находить самую длинную подстроку начинающуюс€ и заканчивающуюс€ на гласную букву");
+            Assert.That(result, Is.EqualTo(expected), "The method should find the longest substring that starts and ends with vowel.");
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "abcdef";
 
             var result = _stringHandler.ChooseSort(input, "quick");
-            Assert.That(result, Is.EqualTo(expected), "—ортировка строки при помощи быстрой сортировки(Quicksort)");
+            Assert.That(result, Is.EqualTo(expected), "Sorting a string sing Quicksort");
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "abcdef";
 
             var result = _stringHandler.ChooseSort(input, "tree");
-            Assert.That(result, Is.EqualTo(expected), "—ортировка строки при помощи сортировки деревом(TreeSort)");
+            Assert.That(result, Is.EqualTo(expected), "Sorting a string using TreeSort");
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace PracticeFromTechnology_WebApi_.UnitTests
             var expected = "Choose 'quick' or 'tree', case sensitive";
 
             var result = _stringHandler.ChooseSort(input, "car");
-            Assert.That(result, Is.EqualTo(expected), "ѕользователь может выбрать только quick или tree");
+            Assert.That(result, Is.EqualTo(expected), "The user can only choose quick or tree.");
         }
     }
 }
