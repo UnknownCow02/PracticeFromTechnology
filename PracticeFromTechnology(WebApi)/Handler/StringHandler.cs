@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.Extensions.Options;
+using System.Text;
 using System.Text.RegularExpressions;
 using WebApiPractice.Sorting;
 
@@ -6,7 +7,14 @@ namespace PracticeFromTechnology_WebApi_.Handler
 {
     public class StringHandler
     {
-        public static string StringReverse(string text)
+        private readonly RandomizerApi _randomizerApi;
+
+        public StringHandler(RandomizerApi randomizerApi)
+        {
+            _randomizerApi = randomizerApi;
+        }
+
+        public string StringReverse(string text)
         {
             var sb = new StringBuilder();
             var halfRange = text.Length / 2;
@@ -28,7 +36,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
             }
         }
 
-        public static string GetInvalidCharacters(string text)
+        public string GetInvalidCharacters(string text)
         {
             var invalidChars = new List<char>();
 
@@ -80,7 +88,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return longestSubstring;
         }
-
+      
         public static string ChoseSort(string text, string sortSelection)
         {
             if (sortSelection == "quick")
@@ -97,6 +105,13 @@ namespace PracticeFromTechnology_WebApi_.Handler
             {
                 return "Choose 'quick' or 'tree', case sensitive";
             }
+        }
+      
+        public async Task<string> RemoveRandomCharacter(string text)
+        {
+            var randomIndex = await _randomizerApi.GetRandomIndexAsync(text.Length - 1);
+            var resultString = text.Remove(randomIndex, 1);
+            return resultString;
         }
     }
 }

@@ -8,27 +8,37 @@ namespace TechnologyPractice.Controllers
     [ApiController]
     public class StringController : Controller
     {
+        private readonly StringHandler _stringHandler;
+        public StringController(StringHandler stringHandler)
+        {
+            _stringHandler = stringHandler;
+        }
+
+        /// <param name="text">string for handler</param>
+        /// <param name="sortSelection">Choose "quick" or "tree</param>
+       
         [HttpGet]
         public ActionResult GetString(string text, string sortSelection)
         {
 
             if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
-                var reversedString = StringHandler.StringReverse(text.ToString());
+                var reversedString = _stringHandler.StringReverse(text.ToString());
                 
                 var response = new
                 {
                     reversedString,
-                    numberOfRepetitions = StringHandler.CharCounter(reversedString),
-                    longestVowelSubstring = StringHandler.SearchVowelsSubstring(reversedString),
-                    sortedString = StringHandler.ChoseSort(reversedString, sortSelection)
+                    numberOfRepetitions = _stringHandler.CharCounter(reversedString),
+                    longestVowelSubstring = _stringHandler.SearchVowelsSubstring(reversedString),
+                    sortedString = _stringHandler.ChoseSort(reversedString, sortSelection),
+                    stringWithDeletedRandomCharacter = _stringHandler.RemoveRandomCharacter(reversedString).Result
                 };
                 
                 return Ok(response);
             }
             else
             {
-                return BadRequest(StringHandler.GetInvalidCharacters(text));
+                return BadRequest(_stringHandler.GetInvalidCharacters(text));
             }
 
         }
