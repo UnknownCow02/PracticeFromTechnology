@@ -19,8 +19,10 @@ namespace TechnologyPractice.Controllers
                 var response = new
                 {
                     reversedString,
-                    numberOfRepetitions = StringHandler.CharCounter(text)
+                    numberOfRepetitions = StringHandler.CharCounter(reversedString),
+                    longestVowelSubstring = StringHandler.SearchVowelsSubstring(reversedString)
                 };
+                
                 return Ok(response);
             }
             else

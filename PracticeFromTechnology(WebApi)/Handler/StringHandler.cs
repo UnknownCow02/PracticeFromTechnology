@@ -60,5 +60,24 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return numberOfCharacter;
         }
+      
+        public static string SearchVowelsSubstring(string text)
+        {
+            string pattern = @"[aeiouy][a-z]*[aeiouy]";
+            var regex = new Regex(pattern);
+            var matches = regex.Matches(text);
+
+            var longestSubstring = string.Empty;
+
+            foreach (Match match in matches)
+            {
+                if (match.Length > longestSubstring.Length)
+                {
+                    longestSubstring = match.Value;
+                }
+            }
+
+            return longestSubstring;
+        }
     }
 }
