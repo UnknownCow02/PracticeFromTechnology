@@ -10,7 +10,6 @@ namespace TechnologyPractice.Controllers
     [ApiController]
     public class StringController : Controller
     {
-
         private readonly StringHandler _stringHandler;
         public StringController(StringHandler stringHandler)
         {
@@ -23,7 +22,6 @@ namespace TechnologyPractice.Controllers
         [HttpGet]
         public ActionResult GetString(string text, string sortSelection)
         {
-
             if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
                 var reversedString = _stringHandler.StringReverse(text.ToString());
@@ -42,7 +40,7 @@ namespace TechnologyPractice.Controllers
                     sortedString = _stringHandler.ChoseSort(reversedString, sortSelection),
                     stringWithDeletedRandomCharacter = _stringHandler.RemoveRandomCharacter(reversedString).Result
                 };
-
+                
                 return Ok(response);
             }
             else
