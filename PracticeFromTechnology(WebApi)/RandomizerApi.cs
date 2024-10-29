@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace PracticeFromTechnology_WebApi_
@@ -22,7 +23,7 @@ namespace PracticeFromTechnology_WebApi_
                     var requestUrl = $"http://www.randomnumberapi.com/api/v1.0/random?min=0&max={max}";
                     var response = await client.GetAsync(requestUrl);
 
-                    if (response.IsSuccessStatusCode)
+                    if(response.IsSuccessStatusCode)
                     {
                         var jsonString = await response.Content.ReadAsStringAsync();
                         var randomNumbers = JsonConvert.DeserializeObject<List<int>>(jsonString);
@@ -42,7 +43,7 @@ namespace PracticeFromTechnology_WebApi_
             {
                 return _random.Next(0, max);
             }
+          
             return 0;
         }
     }
-}

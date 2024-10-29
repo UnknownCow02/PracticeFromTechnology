@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PracticeFromTechnology_WebApi_;
 using PracticeFromTechnology_WebApi_.Handler;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace TechnologyPractice.Controllers
@@ -16,15 +18,20 @@ namespace TechnologyPractice.Controllers
 
         /// <param name="text">string for handler</param>
         /// <param name="sortSelection">Choose "quick" or "tree</param>
-       
+        
         [HttpGet]
         public ActionResult GetString(string text, string sortSelection)
         {
-
             if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
                 var reversedString = _stringHandler.StringReverse(text.ToString());
-                
+                var invalidWord = _stringHandler.InvalidWord(text);
+
+                if (text == invalidWord)
+                {
+                    return BadRequest($"Данная строка находится в черном списке: {invalidWord}");
+                }
+
                 var response = new
                 {
                     reversedString,

@@ -8,10 +8,17 @@ namespace PracticeFromTechnology_WebApi_.Handler
     public class StringHandler
     {
         private readonly RandomizerApi _randomizerApi;
-
-        public StringHandler(RandomizerApi randomizerApi)
+        private readonly List<string> _blacklistWords;
+      
+        public StringHandler(RandomizerApi randomizerApi, IOptions<BlacklistSettings> blacklistSettings)
         {
+            if (blacklistSettings?.Value?.Words == null || !blacklistSettings.Value.Words.Any())
+            {
+                throw new ArgumentException("Blacklist settings are not configured properly.");
+            }
+
             _randomizerApi = randomizerApi;
+            _blacklistWords = blacklistSettings.Value?.Words ?? throw new ArgumentException("Blacklist settings are not configured properly.");
         }
 
         public string StringReverse(string text)
@@ -50,8 +57,8 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
-
-        public static Dictionary<char, int> CharCounter(string text)
+      
+        public Dictionary<char, int> CharCounter(string text)
         {
             var numberOfCharacter = new Dictionary<char, int>();
 
@@ -70,7 +77,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
             return numberOfCharacter;
         }
       
-        public static string SearchVowelsSubstring(string text)
+        public string SearchVowelsSubstring(string text)
         {
             string pattern = @"[aeiouy][a-z]*[aeiouy]";
             var regex = new Regex(pattern);
@@ -88,30 +95,55 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return longestSubstring;
         }
-      
-        public static string ChoseSort(string text, string sortSelection)
+
+        public string ChoseSort(string text, string sortSelection)
         {
-            if (sortSelection == "quick")
+            if(sortSelection == "quick")
             {
                 var quickSortingString = QuickSort.QuickSortMethod(text.ToCharArray(), 0, text.Length - 1);
                 return string.Join("", quickSortingString);
-            }
-            else if (sortSelection == "tree")
+            }else if(sortSelection == "tree")
             {
                 var treeSortingStrign = TreeNode.TreeSort(text.ToCharArray());
                 return string.Join("", treeSortingStrign);
             }
             else
             {
-                return "Choose 'quick' or 'tree', case sensitive";
+                return "Choose 'quick' or 'tree', case sensitive"; 
             }
         }
-      
+
         public async Task<string> RemoveRandomCharacter(string text)
         {
             var randomIndex = await _randomizerApi.GetRandomIndexAsync(text.Length - 1);
             var resultString = text.Remove(randomIndex, 1);
             return resultString;
         }
-    }
+
+        public List<string> GetBlacklistedWords(string text)
+        {
+            var words = text.Split(new[] { ' ', '.', ',', ';', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+            var foundBlacklistedWords = new List<string>();
+
+            foreach(var word in words)
+            {
+                if (_blacklistWords.Contains(word))
+                {
+                    foundBlacklistedWords.Add(word);
+                }
+            }
+
+            return foundBlacklistedWords;
+        }
+
+        public string InvalidWord(string text)
+        {
+            var blacklistWord = GetBlacklistedWords(text);
+            if (!blacklistWord.Any())
+            {
+                return string.Join(",", blacklistWord);
+            }
+            return text;
+        }
+    } 
 }

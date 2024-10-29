@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("RandomApi"));
+builder.Services.Configure<BlacklistSettings>(builder.Configuration.GetSection("Blacklist"));
 builder.Services.AddTransient<StringHandler>();
 builder.Services.AddTransient<RandomizerApi>();
 builder.Services.AddControllers();
