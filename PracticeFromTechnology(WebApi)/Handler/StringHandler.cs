@@ -61,7 +61,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return numberOfCharacter;
         }
-
+      
         public static string SearchVowelsSubstring(string text)
         {
             string pattern = @"[aeiouy][a-z]*[aeiouy]";
