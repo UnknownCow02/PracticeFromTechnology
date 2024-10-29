@@ -11,15 +11,18 @@ namespace TechnologyPractice.Controllers
         [HttpGet]
         public ActionResult GetString(string text)
         {
+
             if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
                 var reversedString = StringHandler.StringReverse(text.ToString());
+
                 var response = new
                 {
                     reversedString,
                     numberOfRepetitions = StringHandler.CharCounter(reversedString),
                     longestVowelSubstring = StringHandler.SearchVowelsSubstring(reversedString)
                 };
+                
                 return Ok(response);
             }
             else
