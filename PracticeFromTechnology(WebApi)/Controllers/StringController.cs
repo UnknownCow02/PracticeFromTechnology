@@ -37,7 +37,7 @@ namespace TechnologyPractice.Controllers
                     reversedString,
                     numberOfRepetitions = _stringHandler.CharCounter(reversedString),
                     longestVowelSubstring = _stringHandler.SearchVowelsSubstring(reversedString),
-                    sortedString = _stringHandler.ChoseSort(reversedString, sortSelection),
+                    sortedString = _stringHandler.ChooseSort(reversedString, sortSelection),
                     stringWithDeletedRandomCharacter = _stringHandler.RemoveRandomCharacter(reversedString).Result
                 };
                 
