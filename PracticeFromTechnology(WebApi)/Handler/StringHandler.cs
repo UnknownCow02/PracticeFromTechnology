@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PracticeFromTechnology_WebApi_.Handler
 {
@@ -24,6 +25,21 @@ namespace PracticeFromTechnology_WebApi_.Handler
                 sb.Append(text.Reverse().ToArray());
                 return string.Concat(sb.ToString(), text);
             }
+        }
+
+        public static string GetInvalidCharacters(string text)
+        {
+            var invalidChars = new List<char>();
+
+            foreach (char c in text)
+            {
+                if (!Regex.IsMatch(c.ToString(), "^[a-z]"))
+                {
+                    invalidChars.Add(c);
+                }
+            }
+
+            return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
     }
 }

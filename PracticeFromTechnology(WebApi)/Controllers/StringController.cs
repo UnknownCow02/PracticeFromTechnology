@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticeFromTechnology_WebApi_.Handler;
+using System.Text.RegularExpressions;
 
 namespace TechnologyPractice.Controllers
 {
@@ -10,11 +11,19 @@ namespace TechnologyPractice.Controllers
         [HttpGet]
         public ActionResult GetString(string text)
         {
-            var response = new
+            if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
-                reversedString = StringHandler.StringReverse(text.ToString())
-            };
-            return Ok(response);
+                var response = new
+                {
+                    reversedString = StringHandler.StringReverse(text.ToString())
+                };
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(StringHandler.GetInvalidCharacters(text));
+            }
+
         }
     }
 }
