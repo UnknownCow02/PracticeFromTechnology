@@ -9,6 +9,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
     {
         private readonly RandomizerApi? _randomizerApi;
         private readonly List<string> _blacklistWords = new List<string>();
+
         public StringHandler(RandomizerApi randomizerApi, IOptions<BlacklistSettings> blacklistSettings)
         {
             if (blacklistSettings?.Value?.Words == null || !blacklistSettings.Value.Words.Any())
@@ -60,7 +61,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
-
+      
         public Dictionary<char, int> CharCounter(string text)
         {
             var numberOfCharacter = new Dictionary<char, int>();
@@ -79,7 +80,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return numberOfCharacter;
         }
-
+      
         public string SearchVowelsSubstring(string text)
         {
             string pattern = @"[aeiouy][a-z]*[aeiouy]";

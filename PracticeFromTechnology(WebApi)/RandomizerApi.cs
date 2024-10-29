@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -28,9 +28,9 @@ namespace PracticeFromTechnology_WebApi_
                         var jsonString = await response.Content.ReadAsStringAsync();
                         var randomNumbers = JsonConvert.DeserializeObject<List<int>>(jsonString);
 
-                        if(randomNumbers != null)
+                        if (randomNumbers != null)
                         {
-                        return randomNumbers.First();
+                            return randomNumbers.First();
                         }
                     }
                     else
@@ -43,7 +43,7 @@ namespace PracticeFromTechnology_WebApi_
             {
                 return _random.Next(0, max);
             }
+          
             return 0;
         }
     }
-}
