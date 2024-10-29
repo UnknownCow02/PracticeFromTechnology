@@ -1,12 +1,14 @@
 using PracticeFromTechnology_WebApi_;
 using PracticeFromTechnology_WebApi_.Handler;
+using PracticeFromTechnology_WebApi_.Middleware;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("RandomApi"));
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 builder.Services.Configure<BlacklistSettings>(builder.Configuration.GetSection("Blacklist"));
+builder.Services.Configure<Settings>(builder.Configuration.GetSection("Settings"));
 builder.Services.AddTransient<StringHandler>();
 builder.Services.AddTransient<RandomizerApi>();
 builder.Services.AddControllers();
@@ -30,6 +32,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
     });
 }
+
+app.UseMiddleware<RequestLimitingMiddleware>();
 
 app.UseHttpsRedirection();
 
