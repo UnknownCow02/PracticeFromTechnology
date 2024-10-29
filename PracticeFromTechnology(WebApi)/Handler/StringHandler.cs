@@ -41,5 +41,24 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
+
+        public static Dictionary<char, int> CharCounter(string text)
+        {
+            var numberOfCharacter = new Dictionary<char, int>();
+
+            foreach (char c in text)
+            {
+                if (numberOfCharacter.ContainsKey(c))
+                {
+                    numberOfCharacter[c]++;
+                }
+                else
+                {
+                    numberOfCharacter[c] = 1;
+                }
+            }
+
+            return numberOfCharacter;
+        }
     }
 }
