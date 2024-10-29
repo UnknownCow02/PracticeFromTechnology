@@ -7,8 +7,8 @@ namespace PracticeFromTechnology_WebApi_.Handler
 {
     public class StringHandler
     {
-        private readonly RandomizerApi _randomizerApi;
-        private readonly List<string> _blacklistWords;
+        private readonly RandomizerApi? _randomizerApi;
+        private readonly List<string> _blacklistWords = new List<string>();
         public StringHandler(RandomizerApi randomizerApi, IOptions<BlacklistSettings> blacklistSettings)
         {
             if (blacklistSettings?.Value?.Words == null || !blacklistSettings.Value.Words.Any())
@@ -19,6 +19,10 @@ namespace PracticeFromTechnology_WebApi_.Handler
             _randomizerApi = randomizerApi;
             _blacklistWords = blacklistSettings.Value?.Words ?? throw new ArgumentException("Blacklist settings are not configured properly.");
         }
+
+        //Создал пустой конструктор, чтобы можно было протестировать 1-5 задания, где не нужен рандомайзер и черный список слов 
+        public StringHandler()
+        {}
 
         public string StringReverse(string text)
         {
@@ -95,7 +99,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
             return longestSubstring;
         }
 
-        public string ChoseSort(string text, string sortSelection)
+        public string ChooseSort(string text, string sortSelection)
         {
             if(sortSelection == "quick")
             {
