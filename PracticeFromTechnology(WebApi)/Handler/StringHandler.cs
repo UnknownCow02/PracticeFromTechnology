@@ -51,7 +51,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
             return $"Недопустимые символы: {string.Join(",", invalidChars)}";
         }
 
-        public Dictionary<char, int> CharCounter(string text)
+        public static Dictionary<char, int> CharCounter(string text)
         {
             var numberOfCharacter = new Dictionary<char, int>();
 
@@ -69,8 +69,8 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return numberOfCharacter;
         }
-
-        public string SearchVowelsSubstring(string text)
+      
+        public static string SearchVowelsSubstring(string text)
         {
             string pattern = @"[aeiouy][a-z]*[aeiouy]";
             var regex = new Regex(pattern);
@@ -88,8 +88,8 @@ namespace PracticeFromTechnology_WebApi_.Handler
 
             return longestSubstring;
         }
-
-        public string ChoseSort(string text, string sortSelection)
+      
+        public static string ChoseSort(string text, string sortSelection)
         {
             if (sortSelection == "quick")
             {
@@ -106,7 +106,7 @@ namespace PracticeFromTechnology_WebApi_.Handler
                 return "Choose 'quick' or 'tree', case sensitive";
             }
         }
-
+      
         public async Task<string> RemoveRandomCharacter(string text)
         {
             var randomIndex = await _randomizerApi.GetRandomIndexAsync(text.Length - 1);

@@ -20,9 +20,11 @@ namespace TechnologyPractice.Controllers
         [HttpGet]
         public ActionResult GetString(string text, string sortSelection)
         {
+
             if (!string.IsNullOrEmpty(text) && Regex.IsMatch(text, "^[a-z]+$"))
             {
                 var reversedString = _stringHandler.StringReverse(text.ToString());
+                
                 var response = new
                 {
                     reversedString,
@@ -30,8 +32,8 @@ namespace TechnologyPractice.Controllers
                     longestVowelSubstring = _stringHandler.SearchVowelsSubstring(reversedString),
                     sortedString = _stringHandler.ChoseSort(reversedString, sortSelection),
                     stringWithDeletedRandomCharacter = _stringHandler.RemoveRandomCharacter(reversedString).Result
-
                 };
+                
                 return Ok(response);
             }
             else
