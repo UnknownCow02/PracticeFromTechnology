@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using WebApiPractice.Sorting;
 
 namespace PracticeFromTechnology_WebApi_.Handler
 {
@@ -78,6 +79,24 @@ namespace PracticeFromTechnology_WebApi_.Handler
             }
 
             return longestSubstring;
+        }
+
+        public static string ChoseSort(string text, string sortSelection)
+        {
+            if (sortSelection == "quick")
+            {
+                var quickSortingString = QuickSort.QuickSortMethod(text.ToCharArray(), 0, text.Length - 1);
+                return string.Join("", quickSortingString);
+            }
+            else if (sortSelection == "tree")
+            {
+                var treeSortingStrign = TreeNode.TreeSort(text.ToCharArray());
+                return string.Join("", treeSortingStrign);
+            }
+            else
+            {
+                return "Choose 'quick' or 'tree', case sensitive";
+            }
         }
     }
 }
